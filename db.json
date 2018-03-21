@@ -1,0 +1,54 @@
+{
+  "users": [
+    {
+      "id": "23",
+      "first_name": "Bill",
+      "age": 20,
+      "companyId": "1"
+    },
+    {
+      "id": "45",
+      "first_name": "Samantha",
+      "age": 21,
+      "companyId": "2"
+    },
+    {
+      "id": "41",
+      "first_name": "Samantha1",
+      "age": 21,
+      "companyId": "1"
+    },
+    {
+      "first_name": "Nishank",
+      "age": 34,
+      "id": "wmhDdqf"
+    },
+    {
+      "first_name": "Nishank",
+      "age": 34,
+      "id": "oJaNOxr"
+    },
+    {
+      "first_name": "Nishank",
+      "age": 34,
+      "id": "wlVilgu"
+    },
+    {
+      "first_name": "Nishank",
+      "age": 34,
+      "id": "_7ToypM"
+    }
+  ],
+  "companies": [
+    {
+      "id": "1",
+      "company_name": "HindustanUnilever",
+      "description": "bla-bla"
+    },
+    {
+      "id": "2",
+      "company_name": "HindustanOOOOUnilever",
+      "description": "bla-bla"
+    }
+  ]
+}
