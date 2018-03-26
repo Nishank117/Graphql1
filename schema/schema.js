@@ -20,7 +20,10 @@ const {
              type: new GraphQLList(UserType),
              resolve(parentValue,args){
                  return axios.get(`http://localhost:3000/companies/${parentValue.id}/users`)
-                 .then(resp=> resp.data);
+                 .then(resp=> resp.data)
+                 .catch((error)=>{
+                     console.log(error);
+                 });
              }
          }
      })
@@ -36,7 +39,10 @@ const UserType = new GraphQLObjectType({
             type : CompanyType,
             resolve(parentValue,args){
                 return axios.get(`http://localhost:3000/companies/${parentValue.companyId}`)
-                .then(resp=> resp.data);
+                .then(resp=> resp.data)
+                .catch((error)=>{
+                    console.log(error);
+                });
             }
         }
     })
@@ -51,7 +57,10 @@ const RootQuery = new GraphQLObjectType({
             args : {id: { type: GraphQLString }},
             resolve(parentValue,args){
                 return axios.get(`http://localhost:3000/users/${args.id}`)
-                .then(resp => resp.data);
+                .then(resp => resp.data)
+                .catch((error)=>{
+                    console.log(error);
+                });
             }
         },
         company: {
@@ -59,7 +68,10 @@ const RootQuery = new GraphQLObjectType({
             args : {id : {type : GraphQLString}},
             resolve(parentValue,args){
                 return axios.get(`http://localhost:3000/companies/${args.id}`)
-                .then(resp => resp.data);
+                .then(resp => resp.data)
+                .catch((error)=>{
+                    console.log(error);
+                });
             }
         }
     }
@@ -77,9 +89,41 @@ const mutation = new GraphQLObjectType({
             },
             resolve(parentValue,{id,first_name,age}){
                 return axios.post('http://localhost:3000/users',{first_name,age})
-                .then(res=>res.data);
+                .then(res=>res.data)
+                .catch((error)=>{
+                    console.log(error);
+                });
             }
-        }
+        },
+        deleteUser : {
+                type: UserType,
+                args: {
+                    id:{type:new GraphQzLNonNull(GraphQLString)}
+                },
+                resolve(parentValue,{id}){
+                    return axios.delete(`http://localhost:3000/users/${id}`)
+                    .then(res=>res.data)
+                    .catch((error)=>{
+                        console.log(error);
+                    })
+                }
+        },
+        editUser: {
+            type: UserType,
+            args:{
+                id: {type: new GraphQLNonNull(GraphQLString)},
+                first_name : {type: GraphQLString},
+                age : {type : GraphQLInt},
+                companyId : {type: GraphQLInt}
+            },
+            resolve(parentValue,args){
+                return axios.patch(`http://localhost:3000/users/${args.id}`,args)
+                .then(res=>res.data)
+                .catch((error)=>{
+                    console.log(error);
+                });
+            }
+        },
     }
 })
 module.exports = new GraphQLSchema({
